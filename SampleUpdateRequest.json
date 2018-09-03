@@ -1,0 +1,24 @@
+To create new record its post and http://127.0.0.1:8888/leads/new
+
+to test the update its put and http://127.0.0.1:8888/leads/update/658793C8-E16C-4CB3-B785-A93424032C8E
+
+658793C8-E16C-4CB3-B785-A93424032C8E is the ID of the previously creted Lead it can be used to test update
+
+// Sample update Body which fails
+{
+    "p_contact_name": "DR. Acme",
+    "p_contact_bday": "2018/14/14",
+    "p_contact_email": "dog@acme.com",
+    "p_contact_mobile": 2135551212
+    
+}
+
+// Sample that passes
+
+{
+    "p_contact_name": "DR. Acme",
+    "p_contact_bday": "2018/1/1",
+    "p_contact_email": "dog@acme.com",
+    "p_contact_mobile": 2135551212
+    
+}

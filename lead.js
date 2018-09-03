@@ -35,6 +35,24 @@ apiRoutes.put('/update/:leadid', function(req, res) {
 })
 
 
+apiRoutes.post('/new', function(req, res) {
+    console.log(req.body)
+    
+   
+    var param = validateNewLead(req.body)   
+    var promise = sqlUtil.storedProcedure(param,'sp_Leads_INS')
+   
+     
+           promise.then((result) => 
+            {
+                console.log('LeadID:' + result.recordset[0].LeadId)
+                res.json({ success: true, LeadID : result.recordset[0].LeadId }).status(200)  
+            })
+            .catch(err => {
+                console.log('Error' + err)
+                res.send({ error: err });
+                })
+})
 
 
 
@@ -53,7 +71,18 @@ function validateUpdateLead(newLead, LeadID)
     return param
 }
 
+function validateNewLead(newLead)
+{
+    const param = [
+        { name: 'p_p_contact_name',type: sql.VarChar(150), value: newLead.p_contact_name},
+        { name: 'p_p_contact_bday',type: sql.VarChar(10), value: newLead.p_contact_bday},
+        { name: 'p_p_contact_mobile',type: sql.VarChar(20), value: newLead.p_contact_mobile},
+       { name: 'p_p_contact_email',type: sql.VarChar(200), value: newLead.p_contact_email},
 
+     
+    ]
+    return param
+}
 
 
   module.exports = apiRoutes;
